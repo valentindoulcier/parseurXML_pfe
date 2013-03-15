@@ -21,7 +21,7 @@ public class Main {
 	 * Cette classe lance un thread initialisant la fenêtre.
 	 * 
 	 * @param args
-	 * @throws DatabaseOffException 
+	 * @throws DatabaseOffException
 	 */
 	public static void main(String[] args){
 
