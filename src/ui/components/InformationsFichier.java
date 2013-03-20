@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.Font;
+import java.awt.Color;
 
 public class InformationsFichier extends JPanel {
 
@@ -50,6 +51,8 @@ public class InformationsFichier extends JPanel {
 	private JLabel lblDate;
 
 	private JLabel lblDatadate;
+	
+	private JLabel lblMessage;
 
 	/**
 	 * Create the panel.
@@ -61,7 +64,7 @@ public class InformationsFichier extends JPanel {
 
 	public void initComponents() {
 		this.setBorder(new LineBorder(SystemColor.textHighlight));
-		this.setPreferredSize(new Dimension(385, 500));
+		this.setPreferredSize(new Dimension(400, 500));
 		this.setMinimumSize(new Dimension(325, 500));
 
 		gridBagLayout = new GridBagLayout();
@@ -72,7 +75,7 @@ public class InformationsFichier extends JPanel {
 		setLayout(gridBagLayout);
 
 		lblDataNomFichier = new JLabel("NomFichier");
-		lblDataNomFichier.setFont(new Font("Lucida Grande", Font.BOLD | Font.ITALIC, 16));
+		lblDataNomFichier.setFont(new Font("Lucida Grande", Font.BOLD, 16));
 		GridBagConstraints gbc_lblDataNomFichier = new GridBagConstraints();
 		gbc_lblDataNomFichier.gridwidth = 3;
 		gbc_lblDataNomFichier.insets = new Insets(0, 0, 5, 5);
@@ -88,7 +91,7 @@ public class InformationsFichier extends JPanel {
 		gbc_lblPath.gridy = 3;
 		add(lblPath, gbc_lblPath);
 
-		lblDatapath = new JLabel("DataPath");
+		lblDatapath = new JLabel("N/A");
 		GridBagConstraints gbc_lblDatapath = new GridBagConstraints();
 		gbc_lblDatapath.anchor = GridBagConstraints.WEST;
 		gbc_lblDatapath.insets = new Insets(0, 0, 5, 5);
@@ -104,7 +107,7 @@ public class InformationsFichier extends JPanel {
 		gbc_lblExtension.gridy = 5;
 		add(lblExtension, gbc_lblExtension);
 
-		lblDataextension = new JLabel("DataExtension");
+		lblDataextension = new JLabel("N/A");
 		GridBagConstraints gbc_lblDataextension = new GridBagConstraints();
 		gbc_lblDataextension.anchor = GridBagConstraints.WEST;
 		gbc_lblDataextension.insets = new Insets(0, 0, 5, 5);
@@ -120,7 +123,7 @@ public class InformationsFichier extends JPanel {
 		gbc_lblType.gridy = 7;
 		add(lblType, gbc_lblType);
 
-		lblDatatype = new JLabel("DataType");
+		lblDatatype = new JLabel("N/A");
 		GridBagConstraints gbc_lblDatatype = new GridBagConstraints();
 		gbc_lblDatatype.anchor = GridBagConstraints.WEST;
 		gbc_lblDatatype.insets = new Insets(0, 0, 5, 5);
@@ -136,7 +139,7 @@ public class InformationsFichier extends JPanel {
 		gbc_lblTaille.gridy = 9;
 		add(lblTaille, gbc_lblTaille);
 
-		lblDatataille = new JLabel("DataTaille");
+		lblDatataille = new JLabel("N/A");
 		GridBagConstraints gbc_lblDatataille = new GridBagConstraints();
 		gbc_lblDatataille.anchor = GridBagConstraints.WEST;
 		gbc_lblDatataille.insets = new Insets(0, 0, 5, 5);
@@ -152,7 +155,7 @@ public class InformationsFichier extends JPanel {
 		gbc_lblAuteur.gridy = 11;
 		add(lblAuteur, gbc_lblAuteur);
 
-		lblDataauteur = new JLabel("DataAuteur");
+		lblDataauteur = new JLabel("N/A");
 		GridBagConstraints gbc_lblDataauteur = new GridBagConstraints();
 		gbc_lblDataauteur.anchor = GridBagConstraints.WEST;
 		gbc_lblDataauteur.insets = new Insets(0, 0, 5, 5);
@@ -168,7 +171,7 @@ public class InformationsFichier extends JPanel {
 		gbc_lblDatemodif.gridy = 13;
 		add(lblDatemodif, gbc_lblDatemodif);
 
-		lblDatadatemodif = new JLabel("DataDateModif");
+		lblDatadatemodif = new JLabel("N/A");
 		GridBagConstraints gbc_lblDatadatemodif = new GridBagConstraints();
 		gbc_lblDatadatemodif.anchor = GridBagConstraints.WEST;
 		gbc_lblDatadatemodif.insets = new Insets(0, 0, 5, 5);
@@ -184,7 +187,7 @@ public class InformationsFichier extends JPanel {
 		gbc_lblLisible.gridy = 15;
 		add(lblLisible, gbc_lblLisible);
 
-		lblDatalisible = new JLabel("DataLisible");
+		lblDatalisible = new JLabel("N/A");
 		GridBagConstraints gbc_lblDatalisible = new GridBagConstraints();
 		gbc_lblDatalisible.anchor = GridBagConstraints.WEST;
 		gbc_lblDatalisible.insets = new Insets(0, 0, 5, 5);
@@ -192,7 +195,7 @@ public class InformationsFichier extends JPanel {
 		gbc_lblDatalisible.gridy = 15;
 		add(lblDatalisible, gbc_lblDatalisible);
 
-		lblDate = new JLabel("Date");
+		lblDate = new JLabel("Date du jour");
 		GridBagConstraints gbc_lblDate = new GridBagConstraints();
 		gbc_lblDate.anchor = GridBagConstraints.WEST;
 		gbc_lblDate.insets = new Insets(0, 0, 5, 5);
@@ -200,13 +203,25 @@ public class InformationsFichier extends JPanel {
 		gbc_lblDate.gridy = 17;
 		add(lblDate, gbc_lblDate);
 
-		lblDatadate = new JLabel("DataDate");
+		lblDatadate = new JLabel("N/A");
 		GridBagConstraints gbc_lblDatadate = new GridBagConstraints();
 		gbc_lblDatadate.anchor = GridBagConstraints.WEST;
 		gbc_lblDatadate.insets = new Insets(0, 0, 5, 5);
 		gbc_lblDatadate.gridx = 3;
 		gbc_lblDatadate.gridy = 17;
 		add(lblDatadate, gbc_lblDatadate);
+		
+		lblMessage = new JLabel("Fichier non supporté");
+		lblMessage.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+		lblMessage.setForeground(Color.RED);
+		lblMessage.setVisible(false);
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.anchor = GridBagConstraints.SOUTH;
+		gbc_lblNewLabel.gridwidth = 3;
+		gbc_lblNewLabel.insets = new Insets(0, 0, 0, 5);
+		gbc_lblNewLabel.gridx = 1;
+		gbc_lblNewLabel.gridy = 18;
+		add(lblMessage, gbc_lblNewLabel);
 	}
 
 	
@@ -460,6 +475,20 @@ public class InformationsFichier extends JPanel {
 	 */
 	public void setLblDatadate(JLabel lblDatadate) {
 		this.lblDatadate = lblDatadate;
+	}
+
+	/**
+	 * @return the lblMessage
+	 */
+	public JLabel getLblMessage() {
+		return lblMessage;
+	}
+
+	/**
+	 * @param lblMessage the lblMessage to set
+	 */
+	public void setLblMessage(JLabel lblMessage) {
+		this.lblMessage = lblMessage;
 	}
 
 }

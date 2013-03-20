@@ -35,7 +35,7 @@ public class Fichier {
 	
 	private String canRead;
 	
-	private long dateModification;
+	private Date dateModification;
 	
 	
 	public Fichier() {		
@@ -68,7 +68,7 @@ public class Fichier {
 			canRead = "Non";
 		}
 		
-		dateModification = fic.lastModified();
+		dateModification = new Date(fic.lastModified());
 	}
 	
 	
@@ -233,7 +233,7 @@ public class Fichier {
 	/**
 	 * @return the dateModification
 	 */
-	public long getDateModification() {
+	public Date getDateModification() {
 		return dateModification;
 	}
 
@@ -241,7 +241,7 @@ public class Fichier {
 	/**
 	 * @param dateModification the dateModification to set
 	 */
-	public void setDateModification(long dateModification) {
+	public void setDateModification(Date dateModification) {
 		this.dateModification = dateModification;
 	}
 

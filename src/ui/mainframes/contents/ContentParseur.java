@@ -5,18 +5,22 @@ package ui.mainframes.contents;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 import principal.Application;
 import principal.Fichier;
 import ui.components.InformationsFichier;
 
 import javax.swing.JButton;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 
 import java.awt.FileDialog;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -32,8 +36,13 @@ public class ContentParseur extends JPanel {
 	private JButton btnJfilechooser;
 
 	//private static Logger logger = Logger.getLogger(ContentParseur.class);
-	
+
 	private InformationsFichier informationsFichier;
+
+	private Timer timer;
+	private ActionListener taskPerformer;
+
+	public boolean rede = false;
 
 	/**
 	 * Create the panel.
@@ -46,37 +55,62 @@ public class ContentParseur extends JPanel {
 
 		btnJfilechooser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				FileDialog d = new FileDialog(new JFrame(), "Charger un fichier XML", FileDialog.LOAD);
 				d.setVisible(true);
-				
-				if(!"".equalsIgnoreCase(d.getFile())) {
-					File file = new File(d.getDirectory() + d.getFile());
-					
-					//if(d.getFile().endsWith(".xml")) {
-						Fichier monFichier = new Fichier(file);
-					
+
+				if(!"".equalsIgnoreCase(d.getFile()) &&  (d.getFile() != null)) {
+
+					timer.stop();
+					informationsFichier.getLblMessage().setVisible(false);
+
+					Fichier monFichier = new Fichier(new File(d.getDirectory() + d.getFile()));
+
+					afficherInfo(monFichier);
+
+					if(".xml".equalsIgnoreCase(monFichier.getExtension())) {
 						monFichier.setNumero(application.getMesFichiers().size() + 1);
-						
+
 						application.getMesFichiers().add(monFichier);
-
-						afficherInfo(application, application.getMesFichiers().size() - 1);
-					//}
-					//else {
+					}
+					else {
 						//TODO
-					//}
+					}
 				}
-
-
 			}
-
 		});
+
+		taskPerformer = new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				//...Perform a task...
+
+				Border toto = new LineBorder(Color.RED, 2);
+				Border tata = new LineBorder(new Color(238, 238, 238), 2);
+				boolean red = !rede;
+				if(red) {
+					informationsFichier.getLblMessage().setVisible(true);
+					informationsFichier.setBorder(toto);
+					rede = true;
+				}
+				else {
+					informationsFichier.getLblMessage().setVisible(false);
+					informationsFichier.setBorder(tata);
+					rede = false;
+				}
+				revalidate();
+				repaint();
+			}
+		};
 
 
 
 	}
 
 	public void initComponents() {
+		timer = new Timer( 500 , taskPerformer);
+		timer.setRepeats(true);
+		timer.start();
+
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{30, 117, 40, 117, 30, 0};
 		gridBagLayout.rowHeights = new int[]{30, 29, 0, 0, 30, 0};
@@ -102,31 +136,49 @@ public class ContentParseur extends JPanel {
 		gbc_panel.gridy = 1;
 		add(informationsFichier, gbc_panel);
 	}
-	
-	
-	public void afficherInfo(Application application, int numeroFichier) {
-		
-		informationsFichier.getLblDataNomFichier().setText(application.getMesFichiers().get(numeroFichier).getNom());
-		
-		informationsFichier.getLblDatapath().setText(application.getMesFichiers().get(numeroFichier).getPath());
-		
-		informationsFichier.getLblDataextension().setText(application.getMesFichiers().get(numeroFichier).getExtension());
-		
-		informationsFichier.getLblDatatype().setText(application.getMesFichiers().get(numeroFichier).getType());
-		
-		informationsFichier.getLblDatataille().setText(application.getMesFichiers().get(numeroFichier).getTaille());
-		
-		informationsFichier.getLblDataauteur().setText(application.getMesFichiers().get(numeroFichier).getAuteur());
-		
-		informationsFichier.getLblDatadatemodif().setText(String.valueOf(application.getMesFichiers().get(numeroFichier).getDateModification()));
-		
-		informationsFichier.getLblDatalisible().setText(application.getMesFichiers().get(numeroFichier).getCanRead());
-		
+
+
+	public void afficherInfo(Fichier monFichier) {
+
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy ~ HH:mm:ss");
-		informationsFichier.getLblDatadate().setText(simpleDateFormat.format(application.getMesFichiers().get(numeroFichier).getDateParsing()));
-		
+
+		informationsFichier.getLblDataNomFichier().setText(monFichier.getNom());
+
+		informationsFichier.getLblDatapath().setText(monFichier.getPath());
+
+		informationsFichier.getLblDataextension().setText(monFichier.getExtension());
+
+		informationsFichier.getLblDatatype().setText(monFichier.getType());
+
+		informationsFichier.getLblDatataille().setText(monFichier.getTaille());
+
+		informationsFichier.getLblDataauteur().setText(monFichier.getAuteur());
+
+		informationsFichier.getLblDatadatemodif().setText(simpleDateFormat.format(monFichier.getDateModification()));
+
+		informationsFichier.getLblDatalisible().setText(monFichier.getCanRead());
+
+		informationsFichier.getLblDatadate().setText(simpleDateFormat.format(monFichier.getDateParsing()));
+
+		if(".xml".equalsIgnoreCase(monFichier.getExtension())) {
+			Border toto = new LineBorder(Color.GREEN, 2);
+			informationsFichier.setBorder(toto);
+		}
+		else {
+
+			timer = new Timer( 500 , taskPerformer);
+			timer.setRepeats(true);
+			timer.start();
+
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+
 		this.revalidate();
 	}
-	
-	
+
+
 }

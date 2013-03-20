@@ -162,7 +162,7 @@ public class VoletFooterParseur extends JPanel {
 					application.getcPanel().remove(contentParseur);	
 				}
 				
-				//voletHistorique.chargerHistorique(application);
+				voletHistorique.chargerHistorique(application);
 				
 				application.getVoletHeader().show(application.getvHeader(), "voletHeaderHistorique");
 				application.getVoletPanel().show(application.getvPanel(), "voletHistorique");
